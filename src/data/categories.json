@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "title": "Guitarras",
+        "image": "https://plus.unsplash.com/premium_photo-1664194584456-c25febbccb2a?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 2,
+        "title": "Baterías",
+        "image": "https://cdn.pixabay.com/photo/2023/01/29/00/16/drums-7751985_1280.jpg"
+    },
+    {
+        "id": 3,
+        "title": "Micrófonos",
+        "image": "https://cdn.pixabay.com/photo/2023/03/25/20/30/podcast-7876792_1280.jpg"
+    },
+    {
+        "id": 4,
+        "title": "Sintetizadores",
+        "image": "https://images.pexels.com/photos/20612468/pexels-photo-20612468/free-photo-of-hombre-fiesta-partido-vida-nocturna.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    },
+    {
+        "id": 5,
+        "title": "Auriculares",
+        "image": "https://cdn.pixabay.com/photo/2018/01/16/10/18/headphones-3085681_1280.jpg"
+    },
+    {
+        "id": 6,
+        "title": "Accesorios de Música",
+        "image": "https://images.pexels.com/photos/4088803/pexels-photo-4088803.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    },
+    {
+        "id": 7,
+        "title": "Conciertos",
+        "image": "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    }
+]

@@ -1,0 +1,1 @@
+export const base_url = "https://luis-tapari-coder-59525-default-rtdb.firebaseio.com/"
