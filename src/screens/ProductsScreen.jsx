@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, Text, View, Image, Pressable,ActivityIndicator } from 'react-native'
-import products from '../data/products.json'
+//import products from '../data/products.json'
 import FlatCard from '../components/FlatCard'
 import { colors } from '../global/colors'
 import Icon from 'react-native-vector-icons/MaterialIcons';
