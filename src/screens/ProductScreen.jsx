@@ -4,27 +4,24 @@ import { colors } from '../global/colors';
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../features/cart/cartSlice';
-import { useGetProductsQuery } from '../services/shopService';
+import { useGetProductQuery } from '../services/shopService';
+
 
 const ProductScreen = ({ route, navigation }) => {
-    //const [productFound, setProductFound] = useState({})
-    //const productId = route.params
     const productId = useSelector(state=>state.shopReducer.value.productId)
-    console.log(productId)
-    //const { width, height } = useWindowDimensions()
-    /*useEffect(() => {
-        setProductFound(products.find(product => product.id === productId))
-    }, [productId])*/
 
-    const { data: productFound, error, isLoading } = useGetProductsQuery(productId)
+    const { width, height } = useWindowDimensions()
+
+    const { data: productFound, error, isLoading } = useGetProductQuery(productId)
 
     const dispatch = useDispatch()
 
     return (
         <>
-        isLoading
+            {
+                isLoading
                     ?
-                    <ActivityIndicator size="large" color={colors.verdeNeon} />
+                    <ActivityIndicator size="large" color={colors.DarkKhaki} />
                     :
                     error
                         ?
@@ -47,12 +44,6 @@ const ProductScreen = ({ route, navigation }) => {
                                 <View style={styles.tags}>
                                     <Text style={styles.tagText}>Tags : </Text>
                                     {
-                                        /* <FlatList
-                                            style={styles.tags}
-                                            data={productFound.tags}
-                                            keyExtractor={() => Math.random()}
-                                            renderItem={({ item }) => (<Text style={styles.tagText}>{item}</Text>)}
-                                        /> */
                                         productFound.tags?.map(tag => <Text key={Math.random()} style={styles.tagText}>{tag}</Text>)
                                     }
                                 </View>
@@ -67,17 +58,17 @@ const ProductScreen = ({ route, navigation }) => {
                             <Text style={styles.price}>Precio: $ {productFound.price}</Text>
                             <Pressable
                                 style={({ pressed }) => [{ opacity: pressed ? 0.95 : 1 }, styles.addToCartButton]}
-                                //style={styles.addToCartButton} 
                                 onPress={() => dispatch(addItem({ ...productFound, quantity: 1 }))}>
                                 <Text style={styles.textAddToCart}>Agregar al carrito</Text>
                             </Pressable>
                         </ScrollView>
-            
+            }
         </>
     )
 }
 
 export default ProductScreen
+
 const styles = StyleSheet.create({
     goBack: {
         padding: 8,
@@ -110,10 +101,9 @@ const styles = StyleSheet.create({
         gap: 5,
     },
     tagText: {
-        //fontFamily:"Montserrat",
         fontWeight: '600',
         fontSize: 14,
-        color: colors.morado
+        color: colors.Rojo
     },
     price: {
         fontWeight: '800',
@@ -123,15 +113,10 @@ const styles = StyleSheet.create({
         backgroundColor: colors.naranjaBrillante,
         width: 64,
         height: 64,
-        //padding: 8,
         borderRadius: 64,
-        //alignSelf: 'flex-start',
     },
     discountText: {
         color: colors.blanco,
-        /* position:'absolute',
-        top:16,
-        left: 16, */
         textAlign: 'center',
         verticalAlign: 'center'
     },
@@ -147,7 +132,7 @@ const styles = StyleSheet.create({
     addToCartButton: {
         padding: 8,
         paddingHorizontal: 16,
-        backgroundColor: colors.morado,
+        backgroundColor: colors.Rojo,
         borderRadius: 16,
         marginVertical: 16
     },

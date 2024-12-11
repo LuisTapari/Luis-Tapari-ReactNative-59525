@@ -14,22 +14,25 @@ const SignupScreen = ({ navigation }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+
     const [errorEmail, setErrorEmail] = useState("")
     const [errorPassword, setErrorPassword] = useState("")
     const [errorConfirmPassword, setErrorConfirmPassword] = useState("")
     const [genericValidationError, setGenericValidationError] = useState("")
-    const [errorAddUser,setErrorAddUser] = useState(false)
+    const [errorAddUser, setErrorAddUser] = useState(false)
+
     const [triggerSignup, result] = useSignupMutation()
+
     const dispatch = useDispatch()
-    useEffect(()=>{
-        if(result.status==="rejected"){
-            console.log("Error al agregar el usuario", result)
-        setErrorAddUser("Ups! No se pudo agregar el usuario")
-    }else if (result.status === "fulfilled") {
-            console.log("Usuario agregado con éxito")
+
+    useEffect(() => {
+        if (result.status === "rejected") {
+            setErrorAddUser("Ups! No se pudo agregar el usuario")
+        } else if (result.status === "fulfilled") {
             dispatch(setUser(result.data))
         }
     }, [result])
+
     const onsubmit = () => {
         try {
             validationSchema.validateSync({ email, password, confirmPassword })
@@ -40,15 +43,12 @@ const SignupScreen = ({ navigation }) => {
         } catch (error) {
             switch (error.path) {
                 case "email":
-                    console.log(error.message)
                     setErrorEmail(error.message)
                     break
                 case "password":
-                    console.log(error.message)
                     setErrorPassword(error.message)
                     break
                 case "confirmPassword":
-                    console.log(error.message)
                     setErrorConfirmPassword(error.message)
                     break
                 default:
@@ -57,14 +57,15 @@ const SignupScreen = ({ navigation }) => {
             }
         }
     }
+
     return (
         <LinearGradient
-            colors={['#400962', '#11001B']}
+            colors={['#9ACD32', '#556B2F']}
             start={{ x: 0, y: 0 }} // esquina superior izquierda
             end={{ x: 1, y: 1 }}   // esquina inferior derecha
             style={styles.gradient}
         >
-            <Text style={styles.title}>Mundo Geek</Text>
+            <Text style={styles.title}>BullBeat</Text>
             <Text style={styles.subTitle}>Registrate</Text>
             <View style={styles.inputContainer}>
                 <TextInput
@@ -104,19 +105,21 @@ const SignupScreen = ({ navigation }) => {
                     </Text>
                 </Pressable>
             </View>
+
             <Pressable style={styles.btn} onPress={onsubmit}><Text style={styles.btnText}>Crear cuenta</Text></Pressable>
             {errorAddUser && <Text style={styles.error}>{errorAddUser}</Text>}
-
             <View style={styles.guestOptionContainer}>
                 <Text style={styles.whiteText}>¿Solo quieres dar un vistazo?</Text>
-                <Pressable onPress={() => dispatch(setUser({ email: "demo@mundogeek.com", token: "demo" }))}>
+                <Pressable onPress={() => dispatch(setUser({ email: "BullBeat@invitado.com", token: "demo" }))}>
                     <Text style={{ ...styles.whiteText, ...styles.strongText }}>Ingresa como invitado</Text>
                 </Pressable>
             </View>
         </LinearGradient>
     )
 }
+
 export default SignupScreen
+
 const styles = StyleSheet.create({
     gradient: {
         flex: 1,
@@ -124,14 +127,14 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        color: colors.verdeNeon,
-        fontFamily: "PressStart2P",
+        color: colors.DarkKhaki,
+        fontFamily: "Audiowide-Regular",
         fontSize: 24
     },
     subTitle: {
         fontFamily: "Montserrat",
         fontSize: 18,
-        color: colors.amarillo,
+        color: colors.Fuchsia,
         fontWeight: '700',
         letterSpacing: 3
     },
@@ -140,6 +143,7 @@ const styles = StyleSheet.create({
         margin: 16,
         marginTop: 48,
         alignItems: 'center',
+
     },
     textInput: {
         padding: 8,
@@ -166,7 +170,7 @@ const styles = StyleSheet.create({
     btn: {
         padding: 16,
         paddingHorizontal: 32,
-        backgroundColor: colors.morado,
+        backgroundColor: colors.Rojo,
         borderRadius: 16,
         marginTop: 32
     },

@@ -1,6 +1,6 @@
 import * as SQLite from 'expo-sqlite/legacy';
 
-const db = SQLite.openDatabase("mundogeek.db")
+const db = SQLite.openDatabase("BullBeat.db")
 
 export const createSessionsTable = () => {
     const promise = new Promise((resolved,rejected)=>{
@@ -33,4 +33,4 @@ export const clearSessions= () => {
         db.transaction(tx=>{tx.executeSql(query,[],(_, result)=>resolved(result),(_,error)=>rejected(error))})
     })
     return promise
-} 
+}

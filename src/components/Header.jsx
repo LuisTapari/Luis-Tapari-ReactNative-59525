@@ -19,7 +19,7 @@ const Header = ({ subtitle }) => {
 
     return (
         <View style={styles.headerContainer}>
-            <Text style={styles.title}>Mundo Geek</Text>
+            <Text style={styles.title}>BullBeat</Text>
             <MontserratText style={styles.subtitle}>{subtitle}</MontserratText>
             {
                 user && <Pressable onPress={onLogout} style={styles.access}><Icon name="logout" size={16} color="#fff" /></Pressable>
@@ -35,22 +35,20 @@ const styles = StyleSheet.create({
         height: 150,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "black",
+        backgroundColor: colors.grisOscuro
     },
     title: {
         fontSize: 24,
-        //fontWeight: 'bold',
-        color: "yellow",
-        fontFamily: 'PressStart2P'
+        color: colors.Fuchsia,
+        fontFamily: 'Audiowide-Regular'
     },
     subtitle: {
         fontSize: 18,
         fontWeight: 700,
-        color: "white",
-        //fontFamily:"PressStart2P"
-},
-    access:{
-    alignSelf: "flex-end",
-    paddingRight: 16
-} 
+        color: colors.blanco,
+    },
+    access: {
+        alignSelf: "flex-end",
+        paddingRight: 16
+    }
 })

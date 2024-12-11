@@ -1,65 +1,77 @@
 import { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, Text, View, Image, Pressable,ActivityIndicator } from 'react-native'
-//import products from '../data/products.json'
+import products from '../data/products.json'
 import FlatCard from '../components/FlatCard'
 import { colors } from '../global/colors'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Search from '../components/Search'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import { useGetProductsByCategoryQuery } from '../services/shopService'
+import { setProductId } from '../features/shop/shopSlice'
 
 const ProductsScreen = ({ navigation, route }) => {
     const [productsFiltered, setProductsFiltered] = useState([])
     const [search, setSearch] = useState("")
+
     const category = useSelector(state => state.shopReducer.value.categorySelected)
-    console.log("Category:", category)
 
     const { data: productsFilteredByCategory, error, isLoading } = useGetProductsByCategoryQuery(category)
+
+    dispatch = useDispatch()
 
     useEffect(() => {
         setProductsFiltered(productsFilteredByCategory)
         if (search) {
             setProductsFiltered(productsFilteredByCategory.filter(product => product.title.toLowerCase().includes(search.toLowerCase())))
         }
-    }, [search])
+    }, [search,productsFilteredByCategory])
 
-    const renderProductItem = ({ item }) => (
-        <Pressable onPress={() => navigation.navigate("Producto", item.id)}>
-            <FlatCard style={styles.productContainer}>
-                <View>
-                    <Image
-                        source={{ uri: item.mainImage }}
-                        style={styles.productImage}
-                        resizeMode="contain"
-                    />
-                </View>
-                <View style={styles.productDescription}>
-                    <Text style={styles.productTitle}>{item.title}</Text>
-                    <Text style={styles.shortDescription}>{item.shortDescription}</Text>
-                    <View style={styles.tags}>
-                        <Text style={styles.tagText}>Tags :</Text>
-                        <FlatList
-                            style={styles.tags}
-                            data={item.tags}
-                            keyExtractor={(tag, index) => `${tag}-${index}`}
-                            renderItem={({ item: tag }) => <Text style={styles.tagText}>{tag}</Text>}
+    const renderProductItem = ({ item }) => {
+        return (
+            <Pressable onPress={() => {
+                dispatch(setProductId(item.id))
+                navigation.navigate("Producto")
+                }}>
+                <FlatCard style={styles.productContainer}>
+                    <View>
+                        <Image
+                            source={{ uri: item.mainImage }}
+                            style={styles.productImage}
+                            resizeMode="contain"
                         />
                     </View>
-                </View>
-            </FlatCard>
-        </Pressable>
-    );
-    
-    console.log("Data fetched:", productsFilteredByCategory);
-    console.log("Error:", error);
-    console.log("Loading:", isLoading);
-    
+                    <View style={styles.productDescription}>
+                        <Text style={styles.productTitle}>{item.title}</Text>
+                        <Text style={styles.shortDescription}>{item.shortDescription}</Text>
+                        <View style={styles.tags}>
+                            <Text style={styles.tagText}>Tags : </Text>
+                            {
+                                <FlatList
+                                    style={styles.tags}
+                                    data={item.tags}
+                                    keyExtractor={() => Math.random()}
+                                    renderItem={({ item }) => (<Text style={styles.tagText}>{item}</Text>)}
+                                />
+                            }
+                        </View>
+                        {
+                            item.discount > 0 && <View style={styles.discount}><Text style={styles.discountText}>Descuento {item.discount} %</Text></View>
+                        }
+                        {
+                            item.stock <= 0 && <Text style={styles.noStockText}>Sin Stock</Text>
+                        }
+                        <Text style={styles.price}>Precio: $ {item.price}</Text>
+                    </View>
+                </FlatCard>
+            </Pressable>
+        )
+    }
     return (
         <>
             {
                 isLoading
                     ?
-                    <ActivityIndicator size="large" color={colors.verdeNeon} />
+                    <ActivityIndicator size="large" color={colors.DarkKhaki} />
                     :
                     error
                         ?
@@ -75,11 +87,12 @@ const ProductsScreen = ({ navigation, route }) => {
                             />
                         </>
             }
-
         </>
     )
 }
+
 export default ProductsScreen
+
 const styles = StyleSheet.create({
     productContainer: {
         flexDirection: 'row',
@@ -97,7 +110,6 @@ const styles = StyleSheet.create({
         width: "80%",
         padding: 20,
         gap: 10
-        //height:100,
     },
     productTitle: {
         fontFamily: 'Montserrat',
@@ -105,16 +117,16 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     shortDescription: {
+
     },
     tags: {
         flexDirection: 'row',
         gap: 5
     },
     tagText: {
-        //fontFamily:"Montserrat",
         fontWeight: '600',
         fontSize: 12,
-        color: colors.morado
+        color: colors.Rojo
     },
     price: {
         fontWeight: '800',

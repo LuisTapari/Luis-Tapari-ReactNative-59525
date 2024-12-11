@@ -1,20 +1,19 @@
 import { StyleSheet, Text, View, FlatList, Image, Pressable, useWindowDimensions, ActivityIndicator } from 'react-native'
-//import categories from "../data/categories.json"
 import FlatCard from '../components/FlatCard'
 import { useEffect, useState } from 'react'
 import { colors } from '../global/colors'
 import { useSelector, useDispatch } from 'react-redux'
 import { setCategory } from '../features/shop/shopSlice'
 import { useGetCategoriesQuery } from '../services/shopService'
+
 const CategoriesScreen = ({ navigation }) => {
-    //console.log("Categories: ", categories)
     const { width, height } = useWindowDimensions()
     const [isPortrait, setIsPortrait] = useState(true)
-    //console.log(width,height)
-    //console.log(navigation)
-    //const categories = useSelector(state => state.shopReducer.value.categories)
+
     const { data: categories, error, isLoading } = useGetCategoriesQuery()
+
     const dispatch = useDispatch()
+
     useEffect(() => {
         if (width > height) {
             setIsPortrait(false)
@@ -27,8 +26,8 @@ const CategoriesScreen = ({ navigation }) => {
     const renderCategoryItem = ({ item, index }) => {
         return (
             <Pressable onPress={() => {
-                dispatch(setCategory(item.title))//item.title es el action.payload
-                navigation.navigate('Productos')/*category*/
+                dispatch(setCategory(item.title))
+                navigation.navigate('Productos')
             }}>
                 <FlatCard style={
                     index % 2 == 0
@@ -47,12 +46,14 @@ const CategoriesScreen = ({ navigation }) => {
             </Pressable>
         )
     }
+
+
     return (
         <>
             {
                 isLoading
                 ?
-                <ActivityIndicator size="large" color={colors.verdeNeon} />
+                <ActivityIndicator size="large" color={colors.DarkKhaki} />
                 :
                 error
                 ?
@@ -67,7 +68,9 @@ const CategoriesScreen = ({ navigation }) => {
         </>
     )
 }
+
 export default CategoriesScreen
+
 const styles = StyleSheet.create({
     categoryItemContainer: {
         justifyContent: "space-between",
@@ -94,13 +97,4 @@ const styles = StyleSheet.create({
     rowReverse: {
         flexDirection: 'row-reverse'
     },
-    /* fixedExample:{
-        width: 100,
-        height:100,
-        backgroundColor: colors.azulCobalto,
-        position: 'absolute',
-        zIndex:999,
-        bottom:10,
-        right: 10
-    } */
 })

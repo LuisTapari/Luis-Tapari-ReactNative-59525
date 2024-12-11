@@ -5,7 +5,6 @@ import { colors } from '../global/colors';
 import Toast from 'react-native-toast-message';
 import FlatCard from '../components/FlatCard';
 import MapView, { Marker } from 'react-native-maps';
-
 import * as Location from 'expo-location';
 
 
@@ -13,9 +12,10 @@ const MyPlacesScreen = () => {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     const [title, setTitle] = useState("")
-    const [places, setPlaces] = useState([{ "id": 1, "title": "Geek Out! Argentina", "coords": { "latitude": -34.555579051686586, "longitude": -58.461540799929494 }, "address": "Blanco Encalada 2518, C1425 Cdad. Autónoma de Buenos Aires" }, { "id": 2, "title": "Fuera de tiempo", "coords": { "latitude": -34.54776236446238, "longitude": -58.5538693790271 }, "address": "Blanco Encalada 2518, C1425 Cdad. Autónoma de Buenos Aires" }])
-
+    const [places, setPlaces] = useState([{ "id": 1, "title": "BullBeat", "coords": { "latitude": -31.43300258224592, "longitude": -64.18142869379531 }, "address": "Parque Sarmiento, X5000 Córdoba" }])
     const [address, setAddress] = useState("")
+
+
     const showToast = (type, message) => {
         Toast.show({
             type: type,
@@ -44,7 +44,7 @@ const MyPlacesScreen = () => {
                         longitudeDelta: 0.0421,
                     }}
                 >
-                    <Marker coordinate={{ "latitude": item.coords.latitude, "longitude": item.coords.longitude }} title={"Lugar Geek"} />
+                    <Marker coordinate={{ latitude: item.coords.latitude, longitude: item.coords.longitude }} title={item.title} />
                 </MapView>
             </View>
             <View style={styles.placeDescriptionContainer}>
@@ -55,7 +55,6 @@ const MyPlacesScreen = () => {
     )
 
 
-
     const getLocation = async () => {
         const permissionOk = await getPermissions()
         if (!permissionOk) {
@@ -63,51 +62,37 @@ const MyPlacesScreen = () => {
         } else {
             let location = await Location.getCurrentPositionAsync({});
             if (location) {
-                const response = await fetch(
-                    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.coords.latitude},${location.coords.longitude}&key=${process.env.EXPO_PUBLIC_GEOCODING_API_KEY}`
-                );
-                const data = await response.json()
-                //console.log(data)
-                if (data.status === 'OK') {
-                    const formattedAddress = data.results[0].formatted_address;
-                    setAddress(formattedAddress)
-                } else {
-                    console.log('Error en geocodificación inversa:', data.error_message)
-                }
+                setLocation(location.coords);
                 showToast("success", "¡Ubicación obtenida!")
             } else {
                 setErrorMsg('Error getting location');
                 showToast("error", "No se pudo obtener la ubicación")
             }
-            //console.log(location.coords)
-            setLocation(location.coords);
         }
     }
 
     const savePlace = () => {
-        if(location && title){
-            setPlaces(prevState => [...prevState, { "id": Math.random(), title, "coords": { "latitude": location.latitude, "longitude": location.longitude },"address": address }])
-            setTitle("")
-            setLocation("")
-        }else{
+        if (location && title) {
+            setPlaces(prevState => [...prevState, { "id": Math.random(), title, "coords": location }]);
+            setTitle("");
+        } else {
             showToast("error", "No se completaron todos los datos")
         }
     }
-
 
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Mis lugares:</Text>
             <View style={styles.inputContainer}>
-            <TextInput style={styles.textInput} placeholder="Ingresa un título" onChangeText={(text) => setTitle(text)} value={title} />
+                <TextInput style={styles.textInput} placeholder="Ingresa un título" onChangeText={(text) => setTitle(text)} value={title} />
                 <Pressable onPress={getLocation}><Icon name="location-on" color={colors.naranjaBrillante} size={24} /></Pressable>
                 <Pressable onPress={savePlace}><Icon name="add-circle" color={colors.verdeOk} size={32} /></Pressable>
             </View>
             <Text style={styles.subtitle}>Tus lugares favoritos:</Text>
             <FlatList
                 data={places}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.id.toString()}
                 renderItem={renderPlaceItem}
             />
             <Toast />
@@ -167,9 +152,7 @@ const styles = StyleSheet.create({
     mapTitle: {
         fontWeight: '700'
     },
-    address: {
-
-    },
+    address: {},
     placeDescriptionContainer: {
         width: '60%',
         padding: 8

@@ -20,34 +20,12 @@ const LoginScreen = ({ navigation }) => {
 
     const [triggerLogin, result] = useLoginMutation()
 
-    //console.log("remember me", rememberMe)
-
-    /* useEffect(()=>{
-        if(result.status==="rejected"){
-            console.log("Error al iniciar sesión", result)
-        }else if(result.status==="fulfilled"){
-            console.log("Usuario logueado con éxito")
-            //console.log(result.data)
-            dispatch(setUser(result.data))
-            insertSession(result.data)
-                    .then((result)=>console.log("Éxito al guardar usuario en la db",result))
-                    .catch((error)=>console.log("Error al guardar usuario en la db", error))
-            
-        }
-        
-    },[result,rememberMe]) */
-
     useEffect(() => {
-        //result?.isSuccess
-        //console.log("Remember me: ", rememberMe)
         if (result.isSuccess) {
-            console.log("Usuario logueado con éxito")
-            console.log(result.data)
             dispatch(setUser(result.data))
 
             if (rememberMe) {
                 clearSessions().then(() => console.log("sesiones eliminadas")).catch(error => console.log("Error al eliminar las sesiones: ", error))
-                console.log("result data:", result.data)
                 insertSession({
                     localId: result.data.localId,
                     email: result.data.email,
@@ -56,12 +34,11 @@ const LoginScreen = ({ navigation }) => {
                     .then(res => console.log("Usuario insertado con éxito", res))
                     .catch(error => console.log("Error al insertar usuario", error))
             }
+
         }
+    }, [result, rememberMe])
 
-        }, [result,rememberMe])
-
-    const onsubmit = () => {
-        //console.log(email,password)       
+    const onsubmit = () => {    
         triggerLogin({ email, password })
     }
 
@@ -70,12 +47,12 @@ const LoginScreen = ({ navigation }) => {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}>
             <LinearGradient
-                colors={['#400962', '#11001B']}
+                colors={['#9ACD32', '#556B2F']}
                 start={{ x: 0, y: 0 }} // esquina superior izquierda
                 end={{ x: 1, y: 1 }}   // esquina inferior derecha
                 style={styles.gradient}
             >
-                <Text style={styles.title}>Mundo Geek</Text>
+                <Text style={styles.title}>BullBeat</Text>
                 <Text style={styles.subTitle}>Ingresa</Text>
                 <View style={styles.inputContainer}>
                     <TextInput
@@ -98,7 +75,7 @@ const LoginScreen = ({ navigation }) => {
                     {
                         rememberMe
                             ?
-                            <Pressable onPress={() => setRememberMe(!rememberMe)}><Icon name="toggle-on" size={48} color={colors.verdeNeon} /></Pressable>
+                            <Pressable onPress={() => setRememberMe(!rememberMe)}><Icon name="toggle-on" size={48} color={colors.DarkKhaki} /></Pressable>
                             :
                             <Pressable onPress={() => setRememberMe(!rememberMe)}><Icon name="toggle-off" size={48} color={colors.grisClaro} /></Pressable>
                     }
@@ -121,7 +98,7 @@ const LoginScreen = ({ navigation }) => {
 
                 <View style={styles.guestOptionContainer}>
                     <Text style={styles.whiteText}>¿Solo quieres dar un vistazo?</Text>
-                    <Pressable onPress={() => dispatch(setUser({ email: "demo@mundogeek.com", token: "demo" }))}>
+                    <Pressable onPress={() => dispatch(setUser({ email: "BullBeat@invitado.com", token: "demo" }))}>
                         <Text style={{ ...styles.whiteText, ...styles.strongText }}>Ingresa como invitado</Text>
                     </Pressable>
                 </View>
@@ -135,21 +112,21 @@ export default LoginScreen
 const styles = StyleSheet.create({
     container:{
         flex:1
-    },
+    },  
     gradient: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
     title: {
-        color: colors.verdeNeon,
-        fontFamily: "PressStart2P",
+        color: colors.DarkKhaki,
+        fontFamily: "Audiowide-Regular",
         fontSize: 24
     },
     subTitle: {
         fontFamily: "Montserrat",
         fontSize: 18,
-        color: colors.amarillo,
+        color: colors.Fuchsia,
         fontWeight: '700',
         letterSpacing: 3
     },
@@ -185,7 +162,7 @@ const styles = StyleSheet.create({
     btn: {
         padding: 16,
         paddingHorizontal: 32,
-        backgroundColor: colors.morado,
+        backgroundColor: colors.Rojo,
         borderRadius: 16,
         marginTop: 32
     },

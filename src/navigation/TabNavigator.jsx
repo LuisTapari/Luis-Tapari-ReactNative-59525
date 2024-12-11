@@ -2,15 +2,17 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons'
+
 import ShopNavigator from "./ShopNavigator";
 import CartNavigator from "./CartNavigator";
 import ReceiptsNavigator from "./ReciptsNavigator";
 import ProfileNavigator from "./ProfileNavigator";
-import { colors } from "../global/colors";
 import MyPlacesNavigator from "./MyPlacesNavigator";
+import { colors } from "../global/colors";
 
 
 const Tab = createBottomTabNavigator()
+
 const TabNavigator = () => {
     return (
         <Tab.Navigator
@@ -48,19 +50,20 @@ const TabNavigator = () => {
                 options={{
                     tabBarIcon: ({ focused }) => (<Icon name="account-circle" size={32} color={focused ? colors.grisOscuro : colors.grisMedio} />)
                 }}
-                
             />
-<Tab.Screen 
+            <Tab.Screen
                 name="Places"
-                component={MyPlacesNavigator} 
+                component={MyPlacesNavigator}
                 options={{
-                    tabBarIcon: ({focused})=>(<Icon name="location-on" size={32} color={focused?colors.grisOscuro:colors.grisMedio} />)
+                    tabBarIcon: ({ focused }) => (<Icon name="location-on" size={32} color={focused ? colors.grisOscuro : colors.grisMedio} />)
                 }}
             />
         </Tab.Navigator>
     )
 }
+
 export default TabNavigator
+
 const styles = StyleSheet.create({
     tabBar: {
         height: 64,

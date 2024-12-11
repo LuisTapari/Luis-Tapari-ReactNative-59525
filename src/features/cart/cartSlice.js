@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { calculate_total_price } from "../../utils/functions";
+
 export const cartSlice = createSlice({
     name: 'cart',
     initialState: {
@@ -26,7 +27,9 @@ export const cartSlice = createSlice({
                     return item
                 })
             }
+
             const total = calculate_total_price(state.value.cartItems)
+
             state.value = {
                 ...state.value,
                 total, 
@@ -47,5 +50,7 @@ export const cartSlice = createSlice({
         }
     }
 })
+
 export const {addItem, removeItem,clearCart} = cartSlice.actions
+
 export default cartSlice.reducer

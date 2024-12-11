@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
+
 import { CategoriesScreen, ProductsScreen, ProductScreen } from "../screens"
 import Header from "../components/Header"
 
@@ -13,6 +14,7 @@ const ShopNavigator = () => {
             }}
         >
             <Stack.Screen name="Categorías"
+                /*options={{ title: 'Categorías locas' }} */
                 component={CategoriesScreen}
             />
             <Stack.Screen name="Productos" component={ProductsScreen} />

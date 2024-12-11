@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 export const shopSlice = createSlice({
     name: 'shop',
     initialState: {
@@ -10,7 +11,6 @@ export const shopSlice = createSlice({
     },
     reducers: {
         setCategory: (state, action) => {
-            //state.value.productsFilteredByCategory = products.filter(product=>product.category.toLowerCase() === action.payload.toLowerCase())
             state.value.categorySelected = action.payload
         },
         setProductId: (state,action) => {
@@ -18,5 +18,7 @@ export const shopSlice = createSlice({
         }
     }
 })
-export const {setCategory, setProductId} = shopSlice.actions
+
+export const {setCategory,setProductId} = shopSlice.actions
+
 export default shopSlice.reducer

@@ -1,4 +1,5 @@
 import { StyleSheet, TextInput } from 'react-native'
+import { colors } from '../global/colors'
 
 const Search = ({ setSearch }) => {
     return (
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     searchInput: {
         margin: 5,
         borderWidth: 1,
-        borderColor: "gray",
+        borderColor: colors.grisMedio,
         borderRadius: 15,
         padding: 5,
         paddingLeft: 10,

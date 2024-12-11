@@ -16,12 +16,12 @@ export const store = configureStore({
         [receiptApi.reducerPath] : receiptApi.reducer,
         [authApi.reducerPath] : authApi.reducer,
         [userApi.reducerPath] : userApi.reducer,
-
+        
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
-        .concat(shopApi.middleware)
-        .concat(receiptApi.middleware)
-        .concat(authApi.middleware)
-        .concat(userApi.middleware)
+    .concat(shopApi.middleware)
+    .concat(receiptApi.middleware)
+    .concat(authApi.middleware)
+    .concat(userApi.middleware)
 })

@@ -1,4 +1,3 @@
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import ReceiptsScreen from "../screens/ReceiptsScreen"
 import Header from "../components/Header"
@@ -16,5 +15,4 @@ const ReceiptsNavigator = () => {
         </Stack.Navigator>
     )
 }
-
 export default ReceiptsNavigator
