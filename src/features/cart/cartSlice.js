@@ -37,11 +37,12 @@ export const cartSlice = createSlice({
             }
 
         },
-        removeItem: (state,action)=>{
-            state.value.cartItems = state.value.cartItems.filter(item=item.id!==action.payload)
-            state.value.total = calculate_total_price(state.value.cartItems)
-            state.value.cartLenght -= 1
-
+        removeItem: (state, action) => {
+            console.log('Removing item with ID:', action.payload);
+            state.value.cartItems = state.value.cartItems.filter(item => item.id !== action.payload);
+            console.log('Cart items after removal:', state.value.cartItems);
+            state.value.total = calculate_total_price(state.value.cartItems);
+            state.value.cartLenght -= 1;
         },
         clearCart: (state) => {
             state.value.cartItems=[]

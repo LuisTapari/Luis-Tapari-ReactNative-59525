@@ -113,12 +113,15 @@ const styles = StyleSheet.create({
         backgroundColor: colors.naranjaBrillante,
         width: 64,
         height: 64,
-        borderRadius: 64,
+        borderRadius: 64 / 2, 
+        justifyContent: 'center',
+        alignItems: 'center', 
     },
     discountText: {
         color: colors.blanco,
+        fontSize: 20, 
+        fontWeight: 'bold',
         textAlign: 'center',
-        verticalAlign: 'center'
     },
     noStockText: {
         color: 'red'

@@ -73,28 +73,29 @@ export default CategoriesScreen
 
 const styles = StyleSheet.create({
     categoryItemContainer: {
-        justifyContent: "space-between",
-        alignItems: "center",
+        flexDirection: "row", 
+        justifyContent: "space-between", 
+        alignItems: "center", 
         marginHorizontal: 10,
-        marginVertical: 5,
-        padding: 20,
+        marginVertical: 10,
+        padding: 15,
+        backgroundColor: colors.lightGray,
+        borderRadius: 10,
+        elevation: 5,
     },
     categoryTitle: {
-        fontSize: 24,
+        fontSize: 18,
         fontWeight: "bold",
-    },
-    categoryTitleSmall: {
-        fontSize: 12,
-        fontWeight: "bold",
+        textAlign: "center",
+        flex: 1, 
     },
     image: {
-        width: 150,
-        height: 80
+        width: 80, 
+        height: 100,
+        marginRight: 10,
+        marginLeft: 10,
+        justifyContent: "center"
     },
-    row: {
-        flexDirection: 'row'
-    },
-    rowReverse: {
-        flexDirection: 'row-reverse'
-    },
-})
+});
+
+

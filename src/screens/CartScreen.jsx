@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { usePostReceiptMutation } from '../services/receiptsService'
-import { clearCart } from '../features/cart/cartSlice'
+import { clearCart, removeItem } from '../features/cart/cartSlice'
 
 const CartScreen = ({navigation}) => {
 
@@ -44,12 +44,15 @@ const CartScreen = ({navigation}) => {
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.description}>{item.shortDescription}</Text>
                 <Text style={styles.price}>Precio unitario: $ {item.price}</Text>
-                <Text stlyle={styles.quantity}>Cantidad: {item.quantity}</Text>
+                <Text style={styles.quantity}>Cantidad: {item.quantity}</Text>
                 <Text style={styles.total}>Total: $ {item.quantity * item.price}</Text>
-                <Icon name="delete" size={24} color="#FC7A5E" style={styles.trashIcon} />
+                <Pressable onPress={() => dispatch(removeItem(item.id))}>
+                    <Icon name="delete" size={24} color="#FC7A5E" style={styles.trashIcon} />
+                </Pressable>
             </View>
         </FlatCard>
-    )
+    );
+    
 
     return (
         <>
